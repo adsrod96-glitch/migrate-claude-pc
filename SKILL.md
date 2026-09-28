@@ -51,7 +51,7 @@ This is what has already been done successfully for real projects; follow the sa
    ```
    powershell -File "<migration-folder>\scripts\import-all-sessions.ps1"
    ```
-   Only use the two individual scripts (`fix-session-paths.ps1` / `register-sessions-sidebar.ps1`) if the user wants to repeat this for one specific project afterwards. After the consolidated script, the user has to fully quit Claude Desktop (including the system tray icon) and reopen it for the sidebar to refresh — once, even with several projects.
+   Only use the two individual scripts (`fix-session-paths.ps1` / `register-sessions-sidebar.ps1`) if the user wants to repeat this for one specific project afterwards. After the consolidated script, the user has to fully quit Claude Desktop (including the system tray icon) and reopen it for the sidebar to refresh. Once is enough, even with several projects.
 10. **After reopening the app** (or in the next session, once the user confirms the scripts ran): group the imported sessions automatically, don't ask the user to drag them by hand. Unlike writing session files, this is a built-in app function and is not blocked:
     - `list_groups` (ccd_sidebar) to see existing groups.
     - `list_sessions` (ccd_session_mgmt, high limit) and filter by `cwd` matching the imported project's folder.

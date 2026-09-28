@@ -1,16 +1,16 @@
 # migrate-claude-pc
 
-A [Claude Code](https://claude.com/claude-code) skill that migrates a project — code, memory, conversation history, global skills and preferences — from one Windows computer to another, and restores the old conversations in the **Claude Desktop sidebar** (not just via `claude --resume` in a terminal).
+A [Claude Code](https://claude.com/claude-code) skill that migrates a project (code, memory, conversation history, global skills and preferences) from one Windows computer to another, and restores the old conversations in the **Claude Desktop sidebar**, not just via `claude --resume` in a terminal.
 
 ## Why
 
 Claude Code stores project history under `~/.claude/projects/<encoded-path>/`, keyed by the exact absolute path of the project on that machine. Move the project to a new computer (new username, new drive letter, whatever) and the history technically still exists, but:
 
 - `claude --resume` won't find it until the paths inside the session files are fixed.
-- Even after that, Claude Desktop's sidebar still won't show it — the app keeps its own separate session registry under `AppData`, unrelated to the raw `.jsonl` files.
+- Even after that, Claude Desktop's sidebar still won't show it. The app keeps its own separate session registry under `AppData`, unrelated to the raw `.jsonl` files.
 - File links inside old messages (a PDF you generated in that session, for example) stay broken if only the `cwd` field gets fixed and not the rest of the text.
 
-This skill handles all three problems, end to end, and knows which parts Claude Code will refuse to do for itself (see [Why some of this has to run manually](#why-some-of-this-has-to-run-manually) below) — those are exactly the two scripts it hands you to run.
+This skill handles all three problems, end to end, and knows which parts Claude Code will refuse to do for itself (see [Why some of this has to run manually](#why-some-of-this-has-to-run-manually) below): those are exactly the two scripts it hands you to run.
 
 ## Install
 
@@ -28,8 +28,8 @@ Claude Code will pick it up automatically. Next time you ask it to migrate a pro
 |---|---|
 | `SKILL.md` | The playbook Claude Code follows: what to copy, in what order, what to ask you about, what to hand off to you. |
 | `references/lessons-learned.md` | The real bugs and dead ends hit while building this, so Claude doesn't repeat them. |
-| `scripts/fix-session-paths.ps1` | Rewrites the old computer's path inside a project's `.jsonl` session files — not just the `cwd` field, the whole text (so file links stay working too). |
-| `scripts/register-sessions-sidebar.ps1` | Registers those sessions with Claude Desktop's own session index, so they appear in the sidebar. Deduplicates automatically — safe to run more than once. |
+| `scripts/fix-session-paths.ps1` | Rewrites the old computer's path inside a project's `.jsonl` session files: not just the `cwd` field, the whole text (so file links stay working too). |
+| `scripts/register-sessions-sidebar.ps1` | Registers those sessions with Claude Desktop's own session index, so they appear in the sidebar. Deduplicates automatically, safe to run more than once. |
 | `scripts/import-all-sessions.ps1` | Runs both of the above for every migrated project at once. Discovers the projects on its own. This is the one you'll actually run. |
 
 ## Why some of this has to run manually
@@ -62,9 +62,9 @@ then fully quit and reopen Claude Desktop. Your old conversations show up in the
 ## Compatibility
 
 - Windows only (PowerShell scripts, Windows path handling).
-- Works with both the regular Claude Desktop installer and the Microsoft Store version (the scripts locate the right `AppData` folder on their own — the Store version virtualizes it under `AppData\Local\Packages\Claude_*\...`).
+- Works with both the regular Claude Desktop installer and the Microsoft Store version (the scripts locate the right `AppData` folder on their own; the Store version virtualizes it under `AppData\Local\Packages\Claude_*\...`).
 - No project-specific assumptions: no hardcoded usernames, paths, or project names. Everything is derived at runtime from the project path you give it.
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT, see [LICENSE](LICENSE).
