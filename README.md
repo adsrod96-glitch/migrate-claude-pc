@@ -1,5 +1,7 @@
 # migrate-claude-pc
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 A [Claude Code](https://claude.com/claude-code) skill that migrates a project (code, memory, conversation history, global skills and preferences) from one Windows computer to another, and restores the old conversations in the **Claude Desktop sidebar**, not just via `claude --resume` in a terminal.
 
 ## Why
